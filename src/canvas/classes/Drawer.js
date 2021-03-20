@@ -40,6 +40,7 @@ export default class Drawer {
 
     $canvas.ctx.beginPath()
     $canvas.ctx.arc(x, y, r, 0, Math.PI * 2)
+    $canvas.ctx.closePath()
   }
 
   /**
