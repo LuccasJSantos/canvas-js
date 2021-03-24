@@ -1,4 +1,6 @@
 import Canvas from "./canvas/classes/Canvas"
+import Drawer from "./canvas/classes/Drawer"
+import ObjectManager from "./canvas/classes/ObjectManager"
 import mouseHandler from "./canvas/mouseHandler"
 
 /**
@@ -9,17 +11,20 @@ import mouseHandler from "./canvas/mouseHandler"
 export default (canvas, initCallback, updateCallback) => {
   window.$canvas = canvas
 
+  const manager = new ObjectManager()
+  const drawer = new Drawer()
+  
   function update() {
-    requestAnimationFrame(() => {
-      updateCallback(canvas)
-      update()
-    })
-
-    mouseHandler.update()
+    canvas.ctx.clearRect(0, 0, canvas.width, canvas.height)
+    
+    manager.updateAll(drawer)
+    mouseHandler.update(canvas)
+    
+    requestAnimationFrame(update)
   }
 
-  mouseHandler.setup()
+  mouseHandler.setup(canvas)
   
-  initCallback(canvas)
+  initCallback({ canvas, manager })
   update()
 }

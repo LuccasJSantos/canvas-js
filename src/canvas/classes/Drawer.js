@@ -2,7 +2,12 @@ import { getStyle } from '../utils'
 
 export default class Drawer {
   constructor() {
+    
+  }
 
+  /** @param {number} size */
+  strokeSize(size = 1) {
+    $canvas.ctx.lineWidth = size
   }
 
   /**
@@ -12,9 +17,8 @@ export default class Drawer {
    * @param {*} a 
    */
   stroke(r, g, b, a) {
-    $canvas.setStroke(
-      getStyle(r, g, b, a)
-    )
+    $canvas.ctx.strokeStyle = getStyle(r, g, b, a)
+    $canvas.ctx.stroke()
   }
 
   /**
